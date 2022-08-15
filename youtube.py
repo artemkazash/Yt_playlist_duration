@@ -11,7 +11,8 @@ def playlist_id_from_link(link):
 # Converts specific youtube duration format to total amount of seconds in a video
 def duration_to_seconds(d):
     hours_pattern, minutes_pattern, seconds_pattern = re.compile(r'(\d+)H'), re.compile(r'(\d+)M'), re.compile(r'(\d+)S')
-    h, m, s= int(hours_pattern.findall(d)[0])*3600 if hours_pattern.findall(d) else 0, int(minutes_pattern.findall(d)[0])*60 if minutes_pattern.findall(d) else 0,int(seconds_pattern.findall(d)[0]) if seconds_pattern.findall(d) else 0
+    h, m, s = int(hours_pattern.findall(d)[0])*3600 if hours_pattern.findall(d) else 0, int(minutes_pattern.findall(d)[0])*60 if minutes_pattern.findall(d) else 0,\
+             int(seconds_pattern.findall(d)[0]) if seconds_pattern.findall(d) else 0
     return h+m+s
 
 
@@ -39,7 +40,8 @@ while True:
     if not token: break
 
 # Extracting all durations of playlist videos
-duration_list=[youtube.videos().list(part='contentDetails',id=id).execute()['items'][0]['contentDetails']['duration'][2:] for id in id_list if youtube.videos().list(part='contentDetails',id=id).execute()['pageInfo']['totalResults']]
+duration_list=[youtube.videos().list(part='contentDetails',id=id).execute()['items'][0]['contentDetails']['duration'][2:]
+               for id in id_list if youtube.videos().list(part='contentDetails',id=id).execute()['pageInfo']['totalResults']]
 
 total_seconds=sum([duration_to_seconds(i) for i in duration_list])
 print(convert(total_seconds))
