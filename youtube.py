@@ -4,7 +4,7 @@ import pyautogui
 
 
 def playlist_id_from_link(link):
-    id_pattern=re.compile(r"(?:(?:\?|&)list=)((?!videoseries)[a-zA-Z0-9_]*)")
+    id_pattern=re.compile(r"(?:(?:\?|&)list=)((?!videoseries)[a-zA-Z0-9_-]*)")
     return id_pattern.findall(link)[0]
 
 
