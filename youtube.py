@@ -40,7 +40,7 @@ while True:
     if not token: break
 
 # Extracting all durations of playlist videos
-duration_list=[youtube.videos().list(part='contentDetails',id=id).execute()['items'][0]['contentDetails']['duration'][2:]
+duration_list=[youtube.videos().list(part='contentDetails',id=id).execute()['items'][0]['contentDetails']['duration']
                for id in id_list if youtube.videos().list(part='contentDetails',id=id).execute()['pageInfo']['totalResults']]
 
 total_seconds=sum([duration_to_seconds(i) for i in duration_list])
